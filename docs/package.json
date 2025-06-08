@@ -1,0 +1,33 @@
+{
+  "name": "docs",
+  "version": "1.0.0",
+  "description": "AccountVerse Docs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "start": "next start",
+    "build": "next build"
+  },
+  "author": "Sahil Sapariya",
+  "license": "MIT",
+  "dependencies": {
+    "markdown-to-jsx": "7.3.2",
+    "next": "^13.5.4",
+    "nextra": "^2.13.1",
+    "nextra-theme-docs": "^2.13.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.30",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "prettier": "^3.0.3",
+    "tailwindcss": "^3.3.3",
+    "typescript": "5.8.3"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
+  }
+}
