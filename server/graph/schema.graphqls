@@ -1,0 +1,43 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+scalar Int64
+scalar Map
+scalar Any
+
+type User {
+  id: ID!
+  # email or phone_number is always present
+  email: String
+  email_verified: Boolean!
+  signup_methods: String!
+  given_name: String
+  family_name: String
+  middle_name: String
+  nickname: String
+  # defaults to email
+  preferred_username: String
+  gender: String
+  birthdate: String
+  phone_number: String
+  phone_number_verified: Boolean
+  picture: String
+  roles: [String!]!
+  created_at: Int64
+  updated_at: Int64
+  revoked_timestamp: Int64
+  is_multi_factor_auth_enabled: Boolean
+  app_data: Map
+}
+
+type VerificationRequest {
+  id: ID!
+  identifier: String
+  token: String
+  email: String
+  expires: Int64
+  created_at: Int64
+  updated_at: Int64
+  nonce: String
+  redirect_uri: String
+}

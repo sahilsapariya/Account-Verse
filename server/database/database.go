@@ -1,24 +1,33 @@
 package database
 
 import (
-    "log"
+	log "github.com/sirupsen/logrus"
 
-    "gorm.io/driver/sqlite"
-    "gorm.io/gorm"
+	"server/constants"
+	"server/database/providers"
+	"server/database/providers/sql"
+	"server/memorystore"
 )
 
-var DB *gorm.DB
+// Provider returns the current database provider
+var Provider providers.Provider
 
-func InitDatabase() {
-    var err error
-    DB, err = gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-    if err != nil {
-        log.Fatal("Failed to connect to database:", err)
-    }
-    
-    log.Println("Database connected successfully")
-}
+func InitDB() error {
+	var err error
 
-func GetDB() *gorm.DB {
-    return DB
+	envs := memorystore.RequiredEnvStoreObj.GetRequiredEnv()
+
+	isSQL := envs.DatabaseType != constants.DbTypeArangodb && envs.DatabaseType != constants.DbTypeMongodb && envs.DatabaseType != constants.DbTypeCassandraDB && envs.DatabaseType != constants.DbTypeScyllaDB && envs.DatabaseType != constants.DbTypeDynamoDB && envs.DatabaseType != constants.DbTypeCouchbaseDB
+	
+	if isSQL {
+		log.Info("Initializing SQL Driver for: ", envs.DatabaseType)
+		Provider, err = sql.NewProvider()
+		if err != nil {
+			log.Fatal("Failed to initialize SQL driver: ", err)
+			return err
+		}
+	}
+	
+
+	return nil
 }
