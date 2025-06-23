@@ -1,0 +1,14 @@
+# Get list of staged files in docs/
+changed_files=$(git diff --cached --name-only | grep "^docs/")
+
+if [ -n "$changed_files" ]; then
+  echo "🧼 Running lint on docs/ project..."
+
+  cd docs || exit 1
+
+  npm run lint || exit 1
+
+  echo "✅ Lint passed."
+else
+  echo "📁 No changes in docs/, skipping lint."
+fi
