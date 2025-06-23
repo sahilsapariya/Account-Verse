@@ -6,9 +6,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// RootHandler is the handler for / root route.
+
+// RootHandler handles root endpoint
 func RootHandler() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		c.Redirect(http.StatusTemporaryRedirect, "/dashboard")
-	}
+    return func(c *gin.Context) {
+        c.Redirect(http.StatusMovedPermanently, "/playground")
+    }
 }

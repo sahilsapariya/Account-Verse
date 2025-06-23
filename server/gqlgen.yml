@@ -4,9 +4,7 @@ schema:
 
 # Where should the generated server code go?
 exec:
-  package: graph
-  layout: single-file # Only other option is "follow-schema," ie multi-file.
-
+  package: generated
   # Only for single-file layout:
   filename: graph/generated/generated.go
 

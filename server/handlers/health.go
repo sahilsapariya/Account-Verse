@@ -6,10 +6,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// HealthHandler is the handler for /health route.
-// It states if server is in healthy state or not
+// HealthHandler handles health check
 func HealthHandler() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		c.String(http.StatusOK, "OK")
-	}
+    return func(c *gin.Context) {
+        c.JSON(http.StatusOK, gin.H{
+            "status": "ok",
+            "message": "Server is running",
+        })
+    }
 }

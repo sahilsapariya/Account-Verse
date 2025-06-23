@@ -1,19 +1,28 @@
 package handlers
 
 import (
-	"github.com/99designs/gqlgen/graphql/handler"
-	"server/graph"
-	"server/graph/generated"
-	"github.com/gin-gonic/gin"
+    "server/graph"
+    "server/graph/generated"
+
+    "github.com/99designs/gqlgen/graphql/handler"
+    "github.com/99designs/gqlgen/graphql/playground"
+    "github.com/gin-gonic/gin"
 )
 
-// GraphqlHandler is the main handler that handels all the graphql requests
-func GraphqlHandler() gin.HandlerFunc {
-	// NewExecutableSchema and Config are in the generated.go file
-	// Resolver is in the resolver.go file
-	h := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{}}))
+// GraphQL handler
+func GraphQLHandler(resolver *graph.Resolver) gin.HandlerFunc {
+    h := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: resolver}))
 
-	return func(c *gin.Context) {
-		h.ServeHTTP(c.Writer, c.Request)
-	}
+    return func(c *gin.Context) {
+        h.ServeHTTP(c.Writer, c.Request)
+    }
+}
+
+// Playground handler
+func PlaygroundHandler() gin.HandlerFunc {
+    h := playground.Handler("GraphQL", "/query")
+
+    return func(c *gin.Context) {
+        h.ServeHTTP(c.Writer, c.Request)
+    }
 }
