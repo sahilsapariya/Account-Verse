@@ -60,3 +60,4 @@ make build-all
 The GraphQL playground is available at `http://localhost:8080/` when the server is running.
 
 # Test comment
+# Another test
