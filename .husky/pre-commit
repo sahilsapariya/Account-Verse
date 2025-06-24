@@ -1,5 +1,5 @@
 # Get list of staged files in docs/
-changed_files=$(git diff --cached --name-only | grep "^docs/")
+changed_files=$(git diff --cached --name-only | grep "^docs/" || true)
 
 if [ -n "$changed_files" ]; then
   echo "🧼 Running lint on docs/ project..."
