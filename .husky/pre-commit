@@ -1,14 +1,37 @@
 # Get list of staged files in docs/
-changed_files=$(git diff --cached --name-only | grep "^docs/" || true)
+docs_changed_files=$(git diff --cached --name-only | grep "^docs/" || true)
 
-if [ -n "$changed_files" ]; then
+# Get list of staged files in server/
+server_changed_files=$(git diff --cached --name-only | grep "^server/" || true)
+
+# Check docs changes
+if [ -n "$docs_changed_files" ]; then
   echo "🧼 Running lint on docs/ project..."
 
   cd docs || exit 1
 
   npm run lint || exit 1
 
-  echo "✅ Lint passed."
+  echo "✅ Docs lint passed."
+  
+  cd .. || exit 1
 else
-  echo "📁 No changes in docs/, skipping lint."
+  echo "📁 No changes in docs/, skipping docs lint."
 fi
+
+# Check server changes
+if [ -n "$server_changed_files" ]; then
+  echo "🔧 Running lint and tests on server/ project..."
+
+  cd server || exit 1
+
+  make pre-commit || exit 1
+
+  echo "✅ Server lint and tests passed."
+  
+  cd .. || exit 1
+else
+  echo "📁 No changes in server/, skipping server lint."
+fi
+
+echo "🎉 All pre-commit checks passed!"
