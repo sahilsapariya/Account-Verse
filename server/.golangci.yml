@@ -1,0 +1,50 @@
+run:
+  timeout: 5m
+  skip-dirs:
+    - graph/generated
+    - tmp
+  skip-files:
+    - ".*\\.gen\\.go$"
+    - ".*generated.*\\.go$"
+
+linters-settings:
+  gofmt:
+    simplify: true
+  goimports:
+    local-prefixes: server
+  revive:
+    rules:
+      - name: var-naming
+        severity: warning
+        disabled: false
+        arguments:
+          - ["ID", "URL", "HTTP", "JSON", "API", "UUID", "SQL", "DB", "SMTP", "JWT", "AWS", "URI", "XML", "HTML", "CSS", "JS", "UI", "UX", "CLI", "GUI", "TCP", "UDP", "IP", "DNS", "SSL", "TLS", "SSH", "FTP", "SFTP", "LDAP", "SAML", "OAuth", "OpenID", "CORS", "CSRF", "XSS", "OWASP", "GDPR", "PII", "MFA", "2FA", "TOTP", "OTP", "SMS", "MMS", "VOIP", "SIP", "RTP", "RTMP", "RTSP", "WebRTC", "WebSocket", "GraphQL", "REST", "SOAP", "gRPC", "Protobuf", "Avro", "Thrift", "MessagePack", "BSON", "YAML", "TOML", "INI", "CSV", "TSV", "PDF", "PNG", "JPG", "JPEG", "GIF", "SVG", "ICO", "TIFF", "BMP", "WebP", "HEIC", "HEIF", "MP3", "MP4", "AVI", "MOV", "WMV", "FLV", "MKV", "WebM", "OGG", "FLAC", "WAV", "AAC", "M4A", "WMA", "3GP", "3GPP", "AMR", "AWB", "GSM", "M4R", "M4B", "M4P", "M4V", "F4V", "F4P", "F4A", "F4B"]
+
+linters:
+  enable:
+    - gofmt
+    - goimports
+    - revive
+    - gosimple
+    - staticcheck
+    - unused
+    - typecheck
+    - ineffassign
+    - misspell
+  disable:
+    - errcheck # We handle errors with panic in resolvers
+
+issues:
+  exclude-rules:
+    - path: graph/generated/
+      linters:
+        - all
+    - path: ".*\\.gen\\.go"
+      linters:
+        - all
+    - path: graph/schema.resolvers.go
+      text: "missing return"
+      linters:
+        - typecheck
+  exclude-dirs:
+    - graph/generated
