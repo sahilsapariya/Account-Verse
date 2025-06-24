@@ -1,0 +1,30 @@
+{
+  "name": "account-verse",
+  "version": "1.0.0",
+  "description": "Generalised user management project focusing on key functionalities, which is compatible with most of the projects and also customisable.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sahilsapariya/Account-Verse.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/sahilsapariya/Account-Verse/issues"
+  },
+  "homepage": "https://github.com/sahilsapariya/Account-Verse#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "husky": "^9.1.7"
+  }
+}

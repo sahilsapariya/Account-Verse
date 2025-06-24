@@ -1,0 +1,8 @@
+branch="$(git symbolic-ref --short HEAD)"
+
+if [ "$branch" = "main" ] || [ "$branch" = "develop" ]; then
+  echo "❌ Direct push to '$branch' is not allowed. Use pull requests instead."
+  exit 1
+else
+  echo "✅ Push allowed on branch '$branch'."
+fi
