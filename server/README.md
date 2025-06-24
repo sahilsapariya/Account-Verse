@@ -1,28 +1,62 @@
-# Getting started
+# Account-Verse Server
 
-First you should have the installed Go in your system and exported all the requried path. To getting started with the setup of the server your present working directory should be `/server`.
+A GraphQL server built with Go and Gin framework.
 
-Now run the following commands to get started:
+## Features
 
+- GraphQL API with gqlgen
+- Hot reloading with Air
+- Database support (SQLite, MongoDB)
+- Comprehensive testing
+- Linting and formatting
+- Docker support
+
+## Development
+
+### Prerequisites
+
+- Go 1.23+
+- Make
+
+### Setup
+
+```bash
+# Install development tools
+make install-tools
+
+# Setup development environment
+make setup
+
+# Run in development mode
+make dev
 ```
-go mod tidy
+
+### Available Commands
+
+Run `make help` to see all available commands.
+
+### Testing
+
+```bash
+# Run tests
+make test
+
+# Run tests with coverage
+make test-coverage
 ```
 
-To start the server there are two options:
+### Building
 
-1. Run only server - without hot reloading
-2. Run server with hot reloading (using `air`)
+```bash
+# Build for current platform
+make build
 
-Commands:
-
-1. for first one
-
-```
-go run main.go
+# Build for all platforms
+make build-all
 ```
 
-2. for second one
+## API
 
-```
-air -c .air.toml
-```
+The GraphQL playground is available at `http://localhost:8080/` when the server is running.
+
+# Test comment
