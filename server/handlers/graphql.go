@@ -10,8 +10,8 @@ import (
 )
 
 // GraphQL handler
-func GraphQLHandler(resolver *graph.Resolver) gin.HandlerFunc {
-	h := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: resolver}))
+func GraphQLHandler() gin.HandlerFunc {
+	h := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{}}))
 
 	return func(c *gin.Context) {
 		h.ServeHTTP(c.Writer, c.Request)
@@ -20,7 +20,7 @@ func GraphQLHandler(resolver *graph.Resolver) gin.HandlerFunc {
 
 // Playground handler
 func PlaygroundHandler() gin.HandlerFunc {
-	h := playground.Handler("GraphQL", "/query")
+	h := playground.Handler("GraphQL", "/playground")
 
 	return func(c *gin.Context) {
 		h.ServeHTTP(c.Writer, c.Request)

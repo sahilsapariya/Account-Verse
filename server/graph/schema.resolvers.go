@@ -9,11 +9,12 @@ import (
 	"fmt"
 	"server/graph/generated"
 	"server/graph/model"
+	"server/resolvers"
 )
 
-// CreateUser is the resolver for the createUser field.
-func (r *mutationResolver) CreateUser(ctx context.Context, input model.CreateUserInput) (*model.User, error) {
-	panic(fmt.Errorf("not implemented: CreateUser - createUser"))
+// Signup is the resolver for the signup field.
+func (r *mutationResolver) Signup(ctx context.Context, params model.SignUpInput) (*model.AuthResponse, error) {
+	return resolvers.SignupResolver(ctx, params)
 }
 
 // Users is the resolver for the users field.
@@ -34,3 +35,15 @@ func (r *Resolver) Query() generated.QueryResolver { return &queryResolver{r} }
 
 type mutationResolver struct{ *Resolver }
 type queryResolver struct{ *Resolver }
+
+// !!! WARNING !!!
+// The code below was going to be deleted when updating resolvers. It has been copied here so you have
+// one last chance to move it out of harms way if you want. There are two reasons this happens:
+//  - When renaming or deleting a resolver the old code will be put in here. You can safely delete
+//    it when you're done.
+//  - You have helper methods in this file. Move them out to keep these resolver files clean.
+/*
+	func (r *mutationResolver) SignUp(ctx context.Context, input model.SignUpInput) (*model.AuthResponse, error) {
+	panic(fmt.Errorf("not implemented: SignUp - SignUp"))
+}
+*/
