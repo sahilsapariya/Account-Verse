@@ -1,15 +1,10 @@
 package main
 
 import (
-	// "context"
-	// "net/http"
-	// "os"
-	// "os/signal"
 	"server/config"
+	"server/database"
 	"server/logs"
 	"server/routes"
-	// "syscall"
-	// "time"
 )
 
 func main() {
@@ -18,6 +13,12 @@ func main() {
 
 	// Initialize logger
 	logger := logs.InitLog("info")
+
+	// Initialize database
+	err := database.InitDB()
+	if err != nil {
+		logger.Fatalln("Error initializing the database: ", err)
+	}
 
 	// Initialize Gin router with the logger
 	r := routes.InitRouter(logger)

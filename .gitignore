@@ -42,3 +42,6 @@ coverage.out
 
 tmp/
 tmp/*
+
+# database files
+*.db
