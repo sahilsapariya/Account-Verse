@@ -7,23 +7,27 @@ toolchain go1.24.4
 require (
 	github.com/99designs/gqlgen v0.17.75
 	github.com/gin-gonic/gin v1.10.1
+	github.com/google/uuid v1.6.0
+	github.com/stretchr/testify v1.10.0
 	github.com/vektah/gqlparser/v2 v2.5.28
 	go.mongodb.org/mongo-driver v1.17.4
-	gorm.io/driver/sqlite v1.6.0
 	gorm.io/gorm v1.30.0
 )
 
 require (
 	github.com/agnivade/levenshtein v1.2.1 // indirect
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/dustin/go-humanize v1.0.1 // indirect
+	github.com/glebarez/go-sqlite v1.21.2 // indirect
 	github.com/go-viper/mapstructure/v2 v2.3.0 // indirect
 	github.com/golang/snappy v1.0.0 // indirect
-	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/websocket v1.5.3 // indirect
 	github.com/hashicorp/golang-lru/v2 v2.0.7 // indirect
 	github.com/klauspost/compress v1.18.0 // indirect
 	github.com/kr/pretty v0.3.1 // indirect
-	github.com/mattn/go-sqlite3 v1.14.28 // indirect
 	github.com/montanaflynn/stats v0.7.1 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
+	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
 	github.com/rogpeppe/go-internal v1.14.1 // indirect
 	github.com/sosodev/duration v1.3.1 // indirect
 	github.com/xdg-go/pbkdf2 v1.0.0 // indirect
@@ -32,6 +36,10 @@ require (
 	github.com/youmark/pkcs8 v0.0.0-20240726163527-a2c0da244d78 // indirect
 	golang.org/x/sync v0.15.0 // indirect
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
+	modernc.org/libc v1.22.5 // indirect
+	modernc.org/mathutil v1.5.0 // indirect
+	modernc.org/memory v1.5.0 // indirect
+	modernc.org/sqlite v1.23.1 // indirect
 )
 
 require (
@@ -40,6 +48,7 @@ require (
 	github.com/cloudwego/base64x v0.1.5 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.9 // indirect
 	github.com/gin-contrib/sse v1.1.0 // indirect
+	github.com/glebarez/sqlite v1.11.0
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.26.0 // indirect

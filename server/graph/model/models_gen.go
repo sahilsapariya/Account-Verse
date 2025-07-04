@@ -2,15 +2,19 @@
 
 package model
 
-type CreateUserInput struct {
-	Name  string `json:"name"`
-	Email string `json:"email"`
+type AuthResponse struct {
+	Message string `json:"message"`
 }
 
 type Mutation struct {
 }
 
 type Query struct {
+}
+
+type SignUpInput struct {
+	Name  string `json:"name"`
+	Email string `json:"email"`
 }
 
 type User struct {

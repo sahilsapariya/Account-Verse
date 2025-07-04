@@ -8,7 +8,11 @@ type User {
   email: String!
 }
 
-input CreateUserInput {
+type AuthResponse {
+  message: String!
+}
+
+input SignUpInput {
   name: String!
   email: String!
 }
@@ -19,5 +23,5 @@ type Query {
 }
 
 type Mutation {
-  createUser(input: CreateUserInput!): User!
+  signup(params: SignUpInput!): AuthResponse!
 }
