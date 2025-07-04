@@ -10,7 +10,6 @@ import (
 )
 
 func SignupResolver(ctx context.Context, params model.SignUpInput) (*model.AuthResponse, error) {
-	var res *model.AuthResponse
 	logger := logs.InitLog("debug")
 
 	userID := uuid.New().String()
@@ -24,7 +23,12 @@ func SignupResolver(ctx context.Context, params model.SignUpInput) (*model.AuthR
 	user, err := database.Provider.AddUser(ctx, user)
 	if err != nil {
 		logger.Debug("Failed to create user: ", err)
-		return res, err
+		return nil, err
+	}
+
+	// Return a proper AuthResponse
+	res := &model.AuthResponse{
+		Message: "User created successfully",
 	}
 
 	return res, nil
