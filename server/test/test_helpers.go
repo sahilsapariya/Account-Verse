@@ -65,25 +65,25 @@ func (h *TestDBHelper) TeardownTestDB() {
 // CreateTestUser creates a test user with default values
 func CreateTestUser(name, email string) *model.User {
 	return &model.User{
-		Name:  name,
-		Email: email,
+		GivenName: &name,
+		Email:     email,
 	}
 }
 
 // CreateTestUserWithID creates a test user with a specific ID
 func CreateTestUserWithID(id, name, email string) *model.User {
 	return &model.User{
-		ID:    id,
-		Name:  name,
-		Email: email,
+		ID:        id,
+		GivenName: &name,
+		Email:     email,
 	}
 }
 
 // CreateTestSignUpInput creates a test signup input
 func CreateTestSignUpInput(name, email string) model.SignUpInput {
 	return model.SignUpInput{
-		Name:  name,
-		Email: email,
+		GivenName: &name,
+		Email:     email,
 	}
 }
 

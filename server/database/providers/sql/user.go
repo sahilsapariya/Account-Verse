@@ -20,3 +20,12 @@ func (p *provider) AddUser(ctx context.Context, user *model.User) (*model.User, 
 
 	return user, nil
 }
+
+func (p *provider) GetUserByEmail(ctx context.Context, email string) (*model.User, error) {
+	var user *model.User
+	result := p.db.Where("email = ?", email).First(&user)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return user, nil
+}

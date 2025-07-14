@@ -1,15 +1,35 @@
 # GraphQL schema example
-#
 # https://gqlgen.com/getting-started/
 
+scalar DateTime
+scalar Int64
+scalar Any
+scalar Map
+
+# Enum for sign-up method
+enum SignupMethod {
+  BASIC_AUTH
+  GOOGLE
+  FACEBOOK
+  APPLE
+}
+
+# Core user type
 type User {
   id: ID!
+
+  # Personal information
   username: String
   email: String!
   password: String!
   given_name: String
   middle_name: String
   family_name: String
+  gender: String
+  date_of_birth: DateTime
+  nationality: String
+
+  # Address and contact information
   phone: String
   address: String
   city: String
@@ -17,24 +37,33 @@ type User {
   zip: String
   country: String
 
+  # Role and auth
+  roles: [String!]!
+  signup_method: SignupMethod!
+
   updated_at: DateTime
   created_at: DateTime
 }
 
+# Response after login/signup/refresh
 type AuthResponse {
   message: String!
   access_token: String
   refresh_token: String
-  expires_in: DateTime
+  at_expires_in: Int64
+  rt_expires_in: Int64
   user: User
 }
 
+# Generic response type
 type Response {
   message: String!
 }
 
+# Input for signing up
 input SignUpInput {
   email: String!
+  username: String
   password: String!
   confirm_password: String!
   given_name: String
@@ -46,13 +75,21 @@ input SignUpInput {
   state: String
   zip: String
   country: String
+  roles: [String!]
+  signup_method: SignupMethod
+  date_of_birth: DateTime
+  nationality: String
+  gender: String
 }
 
+# Queries
 type Query {
   users: [User!]!
   user(id: ID!): User
 }
 
+# Mutations
 type Mutation {
   signup(params: SignUpInput!): AuthResponse!
+  refresh_token(token: String!): AuthResponse!
 }

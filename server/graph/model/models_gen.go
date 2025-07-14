@@ -2,8 +2,21 @@
 
 package model
 
+import (
+	"bytes"
+	"fmt"
+	"io"
+	"strconv"
+	"time"
+)
+
 type AuthResponse struct {
-	Message string `json:"message"`
+	Message      string  `json:"message"`
+	AccessToken  *string `json:"access_token,omitempty"`
+	RefreshToken *string `json:"refresh_token,omitempty"`
+	AtExpiresIn  *int64  `json:"at_expires_in,omitempty"`
+	RtExpiresIn  *int64  `json:"rt_expires_in,omitempty"`
+	User         *User   `json:"user,omitempty"`
 }
 
 type Mutation struct {
@@ -12,13 +25,109 @@ type Mutation struct {
 type Query struct {
 }
 
+type Response struct {
+	Message string `json:"message"`
+}
+
 type SignUpInput struct {
-	Name  string `json:"name"`
-	Email string `json:"email"`
+	Email           string        `json:"email"`
+	Username        *string       `json:"username,omitempty"`
+	Password        string        `json:"password"`
+	ConfirmPassword string        `json:"confirm_password"`
+	GivenName       *string       `json:"given_name,omitempty"`
+	MiddleName      *string       `json:"middle_name,omitempty"`
+	FamilyName      *string       `json:"family_name,omitempty"`
+	Phone           *string       `json:"phone,omitempty"`
+	Address         *string       `json:"address,omitempty"`
+	City            *string       `json:"city,omitempty"`
+	State           *string       `json:"state,omitempty"`
+	Zip             *string       `json:"zip,omitempty"`
+	Country         *string       `json:"country,omitempty"`
+	Roles           []string      `json:"roles,omitempty"`
+	SignupMethod    *SignupMethod `json:"signup_method,omitempty"`
+	DateOfBirth     *time.Time    `json:"date_of_birth,omitempty"`
+	Nationality     *string       `json:"nationality,omitempty"`
+	Gender          *string       `json:"gender,omitempty"`
 }
 
 type User struct {
-	ID    string `json:"id"`
-	Name  string `json:"name"`
-	Email string `json:"email"`
+	ID           string       `json:"id"`
+	Username     *string      `json:"username,omitempty"`
+	Email        string       `json:"email"`
+	Password     string       `json:"password"`
+	GivenName    *string      `json:"given_name,omitempty"`
+	MiddleName   *string      `json:"middle_name,omitempty"`
+	FamilyName   *string      `json:"family_name,omitempty"`
+	Gender       *string      `json:"gender,omitempty"`
+	DateOfBirth  *time.Time   `json:"date_of_birth,omitempty"`
+	Nationality  *string      `json:"nationality,omitempty"`
+	Phone        *string      `json:"phone,omitempty"`
+	Address      *string      `json:"address,omitempty"`
+	City         *string      `json:"city,omitempty"`
+	State        *string      `json:"state,omitempty"`
+	Zip          *string      `json:"zip,omitempty"`
+	Country      *string      `json:"country,omitempty"`
+	Roles        StringArray  `json:"roles"`
+	SignupMethod SignupMethod `json:"signup_method"`
+	UpdatedAt    *time.Time   `json:"updated_at,omitempty"`
+	CreatedAt    *time.Time   `json:"created_at,omitempty"`
+}
+
+type SignupMethod string
+
+const (
+	SignupMethodBasicAuth SignupMethod = "BASIC_AUTH"
+	SignupMethodGoogle    SignupMethod = "GOOGLE"
+	SignupMethodFacebook  SignupMethod = "FACEBOOK"
+	SignupMethodApple     SignupMethod = "APPLE"
+)
+
+var AllSignupMethod = []SignupMethod{
+	SignupMethodBasicAuth,
+	SignupMethodGoogle,
+	SignupMethodFacebook,
+	SignupMethodApple,
+}
+
+func (e SignupMethod) IsValid() bool {
+	switch e {
+	case SignupMethodBasicAuth, SignupMethodGoogle, SignupMethodFacebook, SignupMethodApple:
+		return true
+	}
+	return false
+}
+
+func (e SignupMethod) String() string {
+	return string(e)
+}
+
+func (e *SignupMethod) UnmarshalGQL(v any) error {
+	str, ok := v.(string)
+	if !ok {
+		return fmt.Errorf("enums must be strings")
+	}
+
+	*e = SignupMethod(str)
+	if !e.IsValid() {
+		return fmt.Errorf("%s is not a valid SignupMethod", str)
+	}
+	return nil
+}
+
+func (e SignupMethod) MarshalGQL(w io.Writer) {
+	fmt.Fprint(w, strconv.Quote(e.String()))
+}
+
+func (e *SignupMethod) UnmarshalJSON(b []byte) error {
+	s, err := strconv.Unquote(string(b))
+	if err != nil {
+		return err
+	}
+	return e.UnmarshalGQL(s)
+}
+
+func (e SignupMethod) MarshalJSON() ([]byte, error) {
+	var buf bytes.Buffer
+	e.MarshalGQL(&buf)
+	return buf.Bytes(), nil
 }
