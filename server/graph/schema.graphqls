@@ -4,17 +4,48 @@
 
 type User {
   id: ID!
-  name: String!
+  username: String
   email: String!
+  password: String!
+  given_name: String
+  middle_name: String
+  family_name: String
+  phone: String
+  address: String
+  city: String
+  state: String
+  zip: String
+  country: String
+
+  updated_at: DateTime
+  created_at: DateTime
 }
 
 type AuthResponse {
   message: String!
+  access_token: String
+  refresh_token: String
+  expires_in: DateTime
+  user: User
+}
+
+type Response {
+  message: String!
 }
 
 input SignUpInput {
-  name: String!
   email: String!
+  password: String!
+  confirm_password: String!
+  given_name: String
+  middle_name: String
+  family_name: String
+  phone: String
+  address: String
+  city: String
+  state: String
+  zip: String
+  country: String
 }
 
 type Query {
