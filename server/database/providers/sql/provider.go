@@ -18,7 +18,7 @@ func NewProvider() (*provider, error) {
 
 	DBName := config.LoadConfig().DBName
 
-	sqliteDB, err = gorm.Open(sqlite.Open(DBName), &gorm.Config{})
+	sqliteDB, _ = gorm.Open(sqlite.Open(DBName), &gorm.Config{})
 
 	err = sqliteDB.AutoMigrate(&model.User{})
 
