@@ -45,3 +45,6 @@ tmp/*
 
 # database files
 *.db
+
+# air file
+.air.toml
