@@ -14,6 +14,12 @@ enum SignupMethod {
   APPLE
 }
 
+enum TokenType {
+  ACCESS_TOKEN
+  REFRESH_TOKEN
+  ID_TOKEN
+}
+
 # Core user type
 type User {
   id: ID!
@@ -87,10 +93,22 @@ input SignInInput {
   password: String!
 }
 
+input ValidateJWTTokenInput {
+  token_type: TokenType!
+  token: String!
+}
+
+type ValidateJWTTokenResponse {
+  is_valid: Boolean!
+  claims: Map
+}
+
+
 # Queries
 type Query {
   users: [User!]!
   user(id: ID!): User
+  validate_jwt_token(params: ValidateJWTTokenInput!): ValidateJWTTokenResponse!
 }
 
 # Mutations

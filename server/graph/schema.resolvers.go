@@ -37,6 +37,11 @@ func (r *queryResolver) User(ctx context.Context, id string) (*model.User, error
 	panic(fmt.Errorf("not implemented: User - user"))
 }
 
+// ValidateJwtToken is the resolver for the validate_jwt_token field.
+func (r *queryResolver) ValidateJwtToken(ctx context.Context, params model.ValidateJWTTokenInput) (*model.ValidateJWTTokenResponse, error) {
+	return resolvers.ValidateJwtTokenResolver(ctx, params)
+}
+
 // Roles is the resolver for the roles field.
 func (r *userResolver) Roles(ctx context.Context, obj *model.User) ([]string, error) {
 	if obj == nil {
