@@ -28,8 +28,6 @@ if [ -n "$server_changed_files" ]; then
   make pre-commit || exit 1
 
   echo "✅ Server lint and tests passed."
-  
-  cd .. || exit 1
 else
   echo "📁 No changes in server/, skipping server lint."
 fi

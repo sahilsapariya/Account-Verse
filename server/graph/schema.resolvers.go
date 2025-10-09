@@ -9,11 +9,17 @@ import (
 	"fmt"
 	"server/graph/generated"
 	"server/graph/model"
+	"server/resolvers"
 )
 
-// CreateUser is the resolver for the createUser field.
-func (r *mutationResolver) CreateUser(ctx context.Context, input model.CreateUserInput) (*model.User, error) {
-	panic(fmt.Errorf("not implemented: CreateUser - createUser"))
+// Signup is the resolver for the signup field.
+func (r *mutationResolver) Signup(ctx context.Context, params model.SignUpInput) (*model.AuthResponse, error) {
+	return resolvers.SignupResolver(ctx, params)
+}
+
+// RefreshToken is the resolver for the refresh_token field.
+func (r *mutationResolver) RefreshToken(ctx context.Context, token string) (*model.AuthResponse, error) {
+	panic(fmt.Errorf("not implemented: RefreshToken - refresh_token"))
 }
 
 // Users is the resolver for the users field.
@@ -26,11 +32,23 @@ func (r *queryResolver) User(ctx context.Context, id string) (*model.User, error
 	panic(fmt.Errorf("not implemented: User - user"))
 }
 
+// Roles is the resolver for the roles field.
+func (r *userResolver) Roles(ctx context.Context, obj *model.User) ([]string, error) {
+	if obj == nil {
+		return nil, nil
+	}
+	return obj.Roles, nil
+}
+
 // Mutation returns generated.MutationResolver implementation.
 func (r *Resolver) Mutation() generated.MutationResolver { return &mutationResolver{r} }
 
 // Query returns generated.QueryResolver implementation.
 func (r *Resolver) Query() generated.QueryResolver { return &queryResolver{r} }
 
+// User returns generated.UserResolver implementation.
+func (r *Resolver) User() generated.UserResolver { return &userResolver{r} }
+
 type mutationResolver struct{ *Resolver }
 type queryResolver struct{ *Resolver }
+type userResolver struct{ *Resolver }
