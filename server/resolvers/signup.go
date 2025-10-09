@@ -26,6 +26,7 @@ func SignupResolver(ctx context.Context, params model.SignUpInput) (*model.AuthR
 	if result != nil {
 		return &model.AuthResponse{
 			Message: "User already exist",
+			User:    result,
 		}, nil
 	}
 
@@ -61,6 +62,13 @@ func SignupResolver(ctx context.Context, params model.SignUpInput) (*model.AuthR
 		FamilyName:   params.FamilyName,
 		Gender:       params.Gender,
 		DateOfBirth:  params.DateOfBirth,
+		Nationality:  params.Nationality,
+		Phone:		  params.Phone,
+		Address: 	  params.Address,
+		City: 		  params.City,
+		State: 		  params.State,
+		Country: 	  params.Country,
+		Zip: 		  params.Zip,
 	}
 
 	_, err = database.Provider.AddUser(ctx, user)
@@ -81,6 +89,7 @@ func SignupResolver(ctx context.Context, params model.SignUpInput) (*model.AuthR
 		RefreshToken: &tokenDetails.RefreshToken,
 		AtExpiresIn:  &tokenDetails.AtExpires,
 		RtExpiresIn:  &tokenDetails.RtExpires,
+		User:         user,
 	}
 
 	return res, nil

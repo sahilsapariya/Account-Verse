@@ -34,7 +34,10 @@ func (r *queryResolver) User(ctx context.Context, id string) (*model.User, error
 
 // Roles is the resolver for the roles field.
 func (r *userResolver) Roles(ctx context.Context, obj *model.User) ([]string, error) {
-	panic(fmt.Errorf("not implemented: Roles - roles"))
+	if obj == nil {
+		return nil, nil
+	}
+	return obj.Roles, nil
 }
 
 // Mutation returns generated.MutationResolver implementation.
