@@ -82,7 +82,7 @@ func TestAddUser_Success(t *testing.T) {
 
 	// Assertions
 	assert.NotEmpty(t, result.ID, "User ID should be generated")
-	assert.Equal(t, user.Name, result.Name, "User name should match")
+	assert.Equal(t, user.Username, result.Username, "User name should match")
 	assert.Equal(t, user.Email, result.Email, "User email should match")
 }
 
@@ -98,7 +98,7 @@ func TestAddUser_WithExistingID(t *testing.T) {
 
 	// Assertions
 	assert.Equal(t, existingID, result.ID, "User ID should remain the same")
-	assert.Equal(t, user.Name, result.Name, "User name should match")
+	assert.Equal(t, user.Username, result.Username, "User name should match")
 	assert.Equal(t, user.Email, result.Email, "User email should match")
 }
 
@@ -139,7 +139,7 @@ func TestAddUser_SpecialCharacters(t *testing.T) {
 
 	// Assertions
 	assert.NotEmpty(t, result.ID, "User ID should be generated")
-	assert.Equal(t, user.Name, result.Name, "User name with special characters should match")
+	assert.Equal(t, user.Username, result.Username, "User name with special characters should match")
 	assert.Equal(t, user.Email, result.Email, "User email with special characters should match")
 }
 
@@ -154,7 +154,7 @@ func TestAddUser_LongStrings(t *testing.T) {
 
 	// Assertions
 	assert.NotEmpty(t, result.ID, "User ID should be generated")
-	assert.Equal(t, user.Name, result.Name, "Long user name should match")
+	assert.Equal(t, user.Username, result.Username, "Long user name should match")
 	assert.Equal(t, user.Email, result.Email, "Long user email should match")
 }
 
@@ -240,7 +240,7 @@ func TestAddUser_Concurrent(t *testing.T) {
 		assert.False(t, idMap[user.ID], "User IDs should be unique")
 		idMap[user.ID] = true
 		assert.NotEmpty(t, user.ID, "User ID should not be empty")
-		assert.NotEmpty(t, user.Name, "User name should not be empty")
+		assert.NotEmpty(t, user.Username, "User name should not be empty")
 		assert.NotEmpty(t, user.Email, "User email should not be empty")
 	}
 }

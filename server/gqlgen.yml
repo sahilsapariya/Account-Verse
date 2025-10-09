@@ -133,6 +133,17 @@ models:
       - github.com/99designs/gqlgen/graphql.Int
       - github.com/99designs/gqlgen/graphql.Int64
       - github.com/99designs/gqlgen/graphql.Int32
+
+  DateTime:
+    model:
+      - github.com/99designs/gqlgen/graphql.Time
+  Map:
+    model:
+      - github.com/99designs/gqlgen/graphql.Map
+  Any:
+    model:
+      - github.com/99designs/gqlgen/graphql.Any
+
   # gqlgen provides a default GraphQL UUID convenience wrapper for github.com/google/uuid 
   # but you can override this to provide your own GraphQL UUID implementation
   UUID:
@@ -150,8 +161,14 @@ models:
   # do not need to worry about interoperability and only expect small numbers.
   Int:
     model:
+      - github.com/99designs/gqlgen/graphql.Int
+  Int32:
+    model:
       - github.com/99designs/gqlgen/graphql.Int32
   Int64:
     model:
-      - github.com/99designs/gqlgen/graphql.Int
       - github.com/99designs/gqlgen/graphql.Int64
+  User:
+    fields:
+      roles:
+        type: server/graph/model.StringArray
