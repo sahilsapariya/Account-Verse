@@ -17,6 +17,11 @@ func (r *mutationResolver) Signup(ctx context.Context, params model.SignUpInput)
 	return resolvers.SignupResolver(ctx, params)
 }
 
+// Signin is the resolver for the signin field.
+func (r *mutationResolver) Signin(ctx context.Context, params model.SignInInput) (*model.AuthResponse, error) {
+	return resolvers.SigninResolver(ctx, params)
+}
+
 // RefreshToken is the resolver for the refresh_token field.
 func (r *mutationResolver) RefreshToken(ctx context.Context, token string) (*model.AuthResponse, error) {
 	panic(fmt.Errorf("not implemented: RefreshToken - refresh_token"))
