@@ -15,12 +15,10 @@ type TokenDetails struct {
 
 //nolint:typecheck // jwt.RegisteredClaims is falsely marked as undefined by linter
 type AccessClaims struct {
-	UserID string `json:"user_id"`
 	jwt.RegisteredClaims
 }
 
 //nolint:typecheck // jwt.RegisteredClaims is falsely marked as undefined by linter
 type RefreshClaims struct {
-	UserID string `json:"user_id"`
 	jwt.RegisteredClaims
 }

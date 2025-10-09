@@ -78,6 +78,16 @@ type User struct {
 	CreatedAt    *time.Time   `json:"created_at,omitempty"`
 }
 
+type ValidateJWTTokenInput struct {
+	TokenType TokenType `json:"token_type"`
+	Token     string    `json:"token"`
+}
+
+type ValidateJWTTokenResponse struct {
+	IsValid bool           `json:"is_valid"`
+	Claims  map[string]any `json:"claims,omitempty"`
+}
+
 type SignupMethod string
 
 const (
@@ -132,6 +142,63 @@ func (e *SignupMethod) UnmarshalJSON(b []byte) error {
 }
 
 func (e SignupMethod) MarshalJSON() ([]byte, error) {
+	var buf bytes.Buffer
+	e.MarshalGQL(&buf)
+	return buf.Bytes(), nil
+}
+
+type TokenType string
+
+const (
+	TokenTypeAccessToken  TokenType = "ACCESS_TOKEN"
+	TokenTypeRefreshToken TokenType = "REFRESH_TOKEN"
+	TokenTypeIDToken      TokenType = "ID_TOKEN"
+)
+
+var AllTokenType = []TokenType{
+	TokenTypeAccessToken,
+	TokenTypeRefreshToken,
+	TokenTypeIDToken,
+}
+
+func (e TokenType) IsValid() bool {
+	switch e {
+	case TokenTypeAccessToken, TokenTypeRefreshToken, TokenTypeIDToken:
+		return true
+	}
+	return false
+}
+
+func (e TokenType) String() string {
+	return string(e)
+}
+
+func (e *TokenType) UnmarshalGQL(v any) error {
+	str, ok := v.(string)
+	if !ok {
+		return fmt.Errorf("enums must be strings")
+	}
+
+	*e = TokenType(str)
+	if !e.IsValid() {
+		return fmt.Errorf("%s is not a valid TokenType", str)
+	}
+	return nil
+}
+
+func (e TokenType) MarshalGQL(w io.Writer) {
+	fmt.Fprint(w, strconv.Quote(e.String()))
+}
+
+func (e *TokenType) UnmarshalJSON(b []byte) error {
+	s, err := strconv.Unquote(string(b))
+	if err != nil {
+		return err
+	}
+	return e.UnmarshalGQL(s)
+}
+
+func (e TokenType) MarshalJSON() ([]byte, error) {
 	var buf bytes.Buffer
 	e.MarshalGQL(&buf)
 	return buf.Bytes(), nil
